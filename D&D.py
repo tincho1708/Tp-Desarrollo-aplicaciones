@@ -1,12 +1,15 @@
 import sqlite3
 
 class Heroe:
-    def __init__(self, nombre, nivel):
+    def __init__(self, nombre, nivel, clase, raza):
         self.nombre = nombre
         self.nivel = nivel
+        self.clase = clase
+        self.raza = raza
+        bonificador_ataque = self.nivel * 0.2
 
     def __str__(self):
-        return f" Nombre {self.nombre} | Nivel {self.nivel}"
+        return f" Nombre {self.nombre} | Nivel {self.nivel} | Clase {self.clase} | Raza {self.raza} | Bonificador de Ataque {bonificador_ataque}"
 
 
 class Tesoro:
@@ -14,17 +17,23 @@ class Tesoro:
         self.nombre_item = nombre_item
         self.tipo = tipo
         self.rareza = rareza
-
+        
     def __str__(self):
         return f" Item {self.nombre_item} | Tipo {self.tipo} | Rareza {self.rareza}"
 
 
 class Mazmorra:
-    def __init__(self, nombre_lugar, dificultad, enemigo_final, fue_completada):
+    def __init__(self, nombre_lugar, nivel_mazmorra, enemigo_final, fue_completada):
         self.nombre_lugar = nombre_lugar
-        self.dificultad = dificultad
+        self.nivel_mazmorra = nivel_mazmorra
         self.enemigo_final = enemigo_final
         self.fue_completada = fue_completada
 
+        if self.nivel_mazmorra - Heroe.nivel >= 5:
+            self.mortalidad = True
+        else: 
+            self.mortalidad = False
+
+
     def __str__(self):
-        return f" Lugar {self.nombre_lugar} | Dificultad {self.dificultad} | Enemigo Final {self.enemigo_final}"
+        return f" Lugar {self.nombre_lugar} | Dificultad {self.nivel_mazmorra} | Enemigo Final {self.enemigo_final}"
