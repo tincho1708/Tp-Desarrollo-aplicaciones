@@ -2,7 +2,7 @@ import streamlit as st
 from conn import HeroeRepo, TesoroRepo, MazmorrasRepo, Heroe, Tesoro
 
 st.set_page_config(
-    page_title="Hermandad de ORT",
+    page_title="D&D Manager",
     page_icon="⚔️",
     layout="wide",
 )
@@ -133,7 +133,7 @@ def diff_info(d):
 
 st.markdown("""
 <div style="text-align:center;padding:24px 0 8px">
-    <h1 style="font-size:2.8em;margin:0;letter-spacing:2px">⚔️ &nbsp; Hermandad de ORT &nbsp; ⚔️</h1>
+    <h1 style="font-size:2.8em;margin:0;letter-spacing:2px">⚔️ &nbsp; D&D Manager &nbsp; ⚔️</h1>
     <p style="color:#8B6914;font-style:italic;font-size:1.05em;margin-top:6px">
         Libro de Campaña Digital — Gestión de la Aventura
     </p>
