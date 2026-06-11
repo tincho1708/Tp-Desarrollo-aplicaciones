@@ -7,10 +7,10 @@ class Heroe:
         self.clase = clase
         self.raza = raza
         self.id = id
-        bonificador_ataque = self.nivel * 0.2
+        self.bonificador_ataque = self.nivel * 0.2
 
     def __str__(self):
-        return f" Nombre {self.nombre} | Nivel {self.nivel} | Clase {self.clase} | Raza {self.raza} | Bonificador de Ataque {bonificador_ataque}"
+        return f" Nombre {self.nombre} | Nivel {self.nivel} | Clase {self.clase} | Raza {self.raza} | Bonificador de Ataque {self.bonificador_ataque}"
 
 
 class Tesoro:
@@ -30,10 +30,8 @@ class Mazmorra:
         self.enemigo_final = enemigo_final
         self.fue_completada = fue_completada
 
-        if self.nivel_mazmorra - Heroe.nivel >= 5:
-            self.mortalidad = True
-        else: 
-            self.mortalidad = False
+    def es_letal_para(self, heroe: Heroe):
+        return self.nivel_mazmorra - heroe.nivel >= 5
 
 
     def __str__(self):
