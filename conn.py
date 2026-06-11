@@ -16,8 +16,13 @@ class HeroeRepo:
     def create(self, heroe: Heroe):
         conn = self.db.conectar()
         cursor = conn.cursor()
-        query = "INSERT INTO heroes (nombre, clase, raza, nivel) VALUES (?, ?, ?, ?)"
-        cursor.execute(query, (heroe.nombre, heroe.clase, heroe.raza, heroe.nivel))
+        query = "INSERT INTO heroes (id, nombre, clase, raza, nivel) VALUES (?. ?, ?, ?, ?)"
+        cursor.execute(query, (heroe.id, heroe.nombre, heroe.clase, heroe.raza, heroe.nivel))
         conn.commit()
         heroe.id = cursor.lastrowid
         conn.close
+    def selectHero(self, heroe: Heroe)
+        conn = self.db.conectar()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM heroes WHERE ")        
+class MazmorrasRepo:
