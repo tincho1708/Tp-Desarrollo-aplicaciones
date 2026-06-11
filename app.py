@@ -135,8 +135,7 @@ st.markdown("""
 <div style="text-align:center;padding:24px 0 8px">
     <h1 style="font-size:2.8em;margin:0;letter-spacing:2px">⚔️ &nbsp; D&D Manager &nbsp; ⚔️</h1>
     <p style="color:#8B6914;font-style:italic;font-size:1.05em;margin-top:6px">
-        Libro de Campaña Digital — Gestión de la Aventura
-    </p>
+    Gestion de datos    </p>
 </div>
 """, unsafe_allow_html=True)
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
