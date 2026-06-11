@@ -16,7 +16,7 @@ class HeroeRepo:
     def create(self, heroe: Heroe):
         conn = self.db.conectar()
         cursor = conn.cursor()
-        query = "INSERT INTO heroes (nombre, clase, raza, nivel) VALUES (?, ?. ?)"
+        query = "INSERT INTO heroes (nombre, clase, raza, nivel) VALUES (?, ?, ?, ?)"
         cursor.execute(query, (heroe.nombre, heroe.clase, heroe.raza, heroe.nivel))
         conn.commit()
         heroe.id = cursor.lastrowid
