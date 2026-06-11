@@ -1,11 +1,9 @@
 import sqlite3
 
 def crear_base_dnd():
-    # Conexión (si no existe, se crea el archivo)
     conexion = sqlite3.connect('campania_dnd.db')
     cursor = conexion.cursor()
 
-    # 1. Tabla de HÉROES
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS heroes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,7 +14,6 @@ def crear_base_dnd():
         )
     ''')
 
-    # 2. Tabla de TESOROS (Relacionada con Héroes)
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS tesoros (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,7 +25,6 @@ def crear_base_dnd():
         )
     ''')
 
-    # 3. Tabla de MAZMORRAS
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS mazmorras (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -39,16 +35,14 @@ def crear_base_dnd():
         )
     ''')
 
-    # Datos de ejemplo iniciales
     heroes_iniciales = [
-        ('Aelar', 'Mago', 'Elfo', 5),
-        ('Bruenor', 'Guerrero', 'Enano', 6),
-        ('Vax', 'Picaro', 'Mediano', 5)
+        (1, 'Aelar', 'Mago', 'Elfo', 5),
+        (2, 'Bruenor', 'Guerrero', 'Enano', 6),
+        (3, 'Vax', 'Picaro', 'Mediano', 5)
     ]
-    
-    cursor.executemany('INSERT INTO heroes (nombre, clase, raza, nivel) VALUES (?, ?, ?, ?)', heroes_iniciales)
 
-    # Objeto mágico asignado al primer héroe (Aelar)
+    cursor.executemany('INSERT INTO heroes (id, nombre, clase, raza, nivel) VALUES (?, ?, ?, ?, ?)', heroes_iniciales)
+
     cursor.execute('INSERT INTO tesoros (nombre_item, tipo, rareza, id_propietario) VALUES (?, ?, ?, ?)', 
                    ('Bastón de Fuego', 'Arma', 'Raro', 1))
 

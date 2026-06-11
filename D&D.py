@@ -1,11 +1,12 @@
 import sqlite3
 
 class Heroe:
-    def __init__(self, nombre, nivel, clase, raza):
+    def __init__(self, nombre, nivel, clase, raza, id):
         self.nombre = nombre
         self.nivel = nivel
         self.clase = clase
         self.raza = raza
+        self.id = id
         bonificador_ataque = self.nivel * 0.2
 
     def __str__(self):
