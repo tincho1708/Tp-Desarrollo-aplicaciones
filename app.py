@@ -1,5 +1,6 @@
 import streamlit as st
-from conn import HeroeRepo, TesoroRepo, MazmorrasRepo, Heroe, Tesoro
+import pandas as pd
+from conn import HeroeRepo, TesoroRepo, MazmorrasRepo, Heroe, Tesoro, Database
 
 st.set_page_config(
     page_title="D&D Manager",
@@ -153,7 +154,7 @@ c4.metric("✅ Completadas", f"{completadas}/{len(mazmorras_all)}")
 
 st.markdown('<hr class="divider">', unsafe_allow_html=True)
 
-tab1, tab2, tab3 = st.tabs(["🧙 Salón de Héroes", "💎 Cofre del Tesoro", "🗺️ Mapa de Mazmorras"])
+tab1, tab2, tab3, tab4 = st.tabs(["🧙 Salón de Héroes", "💎 Cofre del Tesoro", "🗺️ Mapa de Mazmorras", "📊 Estadísticas"])
 
 
 with tab1:
@@ -367,13 +368,41 @@ with tab3:
                     st.success(f"¡{nombre_m} añadida al mapa!")
                     st.rerun()
 
-        st.markdown('<hr class="divider">', unsafe_allow_html=True)
-        st.markdown("#### Leyenda de dificultad")
+
+with tab4:
+    st.markdown("## 📊 Estadísticas de la Hermandad")
+    st.markdown("#### Nivel de los héroes")
+
+    conn = Database().conectar()
+    df_heroes = pd.read_sql("SELECT * FROM heroes", conn)
+    conn.close()
+
+    if df_heroes.empty:
+        st.info("Todavía no hay héroes cargados para analizar.")
+    else:
+        media   = df_heroes["nivel"].mean()
+        mediana = df_heroes["nivel"].median()
+        moda    = df_heroes["nivel"].mode()
+
+        c1, c2, c3 = st.columns(3)
+        c1.metric("Media",   f"{media:.2f}")
+        c2.metric("Mediana", f"{mediana:.1f}")
+        c3.metric("Moda",    ", ".join(str(m) for m in moda))
+
+        diferencia = abs(media - mediana)
+        if diferencia < 1:
+            texto_media = "la media y la mediana son bastante parecidas, lo que sugiere que los niveles están repartidos de forma pareja, sin héroes que se alejen demasiado del resto."
+        else:
+            texto_media = "la media y la mediana difieren notoriamente, lo que indica que hay algunos héroes con niveles muy altos o muy bajos que corren el promedio."
+
+        if len(moda) == 1:
+            texto_moda = f"el nivel {moda[0]} es el más común entre los héroes registrados, hay una moda clara."
+        else:
+            texto_moda = "no hay un único nivel que se repita más que los demás, los valores están bastante repartidos."
+
         st.markdown(f"""
-        <div style="font-size:0.88em;line-height:2">
-            {badge("1–5  · Fácil",    "#27AE60")} nivel de entrada<br>
-            {badge("6–10 · Moderada", "#F39C12")} requiere preparación<br>
-            {badge("11–15· Difícil",  "#E74C3C")} héroes experimentados<br>
-            {badge("16–20· Letal",    "#8B008B")} ⚠️ mortal
+        <div class="card">
+            En la Hermandad hay {len(df_heroes)} héroes registrados. En cuanto al nivel, {texto_media}
+            Además, {texto_moda}
         </div>
         """, unsafe_allow_html=True)
