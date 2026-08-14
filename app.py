@@ -389,4 +389,20 @@ with tab4:
         c2.metric("Mediana", f"{mediana:.1f}")
         c3.metric("Moda",    ", ".join(str(m) for m in moda))
 
-        
+        diferencia = abs(media - mediana)
+        if diferencia < 1:
+            texto_media = "la media y la mediana son bastante parecidas, lo que sugiere que los niveles están repartidos de forma pareja, sin héroes que se alejen demasiado del resto."
+        else:
+            texto_media = "la media y la mediana difieren notoriamente, lo que indica que hay algunos héroes con niveles muy altos o muy bajos que corren el promedio."
+
+        if len(moda) == 1:
+            texto_moda = f"el nivel {moda[0]} es el más común entre los héroes registrados, hay una moda clara."
+        else:
+            texto_moda = "no hay un único nivel que se repita más que los demás, los valores están bastante repartidos."
+
+        st.markdown(f"""
+        <div class="card">
+            En la Hermandad hay {len(df_heroes)} héroes registrados. En cuanto al nivel, {texto_media}
+            Además, {texto_moda}
+        </div>
+        """, unsafe_allow_html=True)
