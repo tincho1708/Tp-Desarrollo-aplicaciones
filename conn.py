@@ -2,7 +2,6 @@ import sqlite3 as sq
 import importlib.util
 import os
 
-# D&D.py tiene & en el nombre, no se puede importar con import normal
 _base = os.path.dirname(os.path.abspath(__file__))
 _spec = importlib.util.spec_from_file_location("DnD", os.path.join(_base, "D&D.py"))
 _mod  = importlib.util.module_from_spec(_spec)
